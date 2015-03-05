@@ -18,7 +18,7 @@ This is an app for controlling your Unity3D via a web page. The web page can be 
 #####Copy the files from the 'Unity_Files' folder to your Unity project
 - If you already have 'Plugins', 'Prefabs' or 'Scripts' folders just copy the files inside the pre-existing folders.
 
-####Copy the OSCReceiver prefab to your project
+#####Copy the OSCReceiver prefab to your project
 - This needs to be added to your project heirarchy to work
 - Inspecting the 'OSCReceiver' prefab revails some additional options for configuration
 - Leave the 'Port' option to 3334 for this demo - our web client is already configured for this
