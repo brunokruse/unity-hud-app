@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HUD</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	
+	<script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>
+	
+	<script>
+
+		socket = io.connect('http://127.0.0.1', { port: 8081, rememberTransport: false});
+		console.log('io');
+		socket.on('connect', function() {		
+        	console.log('connected');
+        	socket.emit('config', {
+                server: {
+                    port: 3333,
+                    host: '127.0.0.1'
+                },
+                client: {
+                    port: 3334,
+                    host: '127.0.0.1'
+                }
+			});
+		});
+		
+		/* Page JavaScript Template 
+			$(document).on('pagecreate', '#unique-page-id', function () {
+			
+			});
+		*/
+
+		$(document).on('pagecreate', '#lock-page', function () {
+			$('#lock').on('vclick', function() {
+				var message = '/lock';
+				console.log('lock ' + message);
+				socket.emit('message', message);
+			});
+			$('#unlock').on('vclick', function() {
+				var message = '/unlock';
+				console.log('unlock ' + message);
+				socket.emit('message', message);
+			});	
+		});			
+		
+		$(document).on('pagecreate', '#headlights-page', function () {
+			$('#headlights-on-off').on('change', function() {
+				var message = '/headlights-on-'+$(this).is(':checked');
+				console.log('headlights-on-off ' + message);
+				socket.emit('message', message);
+			});
+			$('#headlights-intensity').on('change', function() {
+				var message = '/headlights_intensity-'+$(this).val();
+				console.log('headlights-intensity ' + message);
+				socket.emit('message', message);
+			});
+		});
+		
+		$(document).on('pagecreate', '#music-page', function () {
+			$('#songs').on('change', function() {
+				$('input[name*=radio]:checked').each(function () {
+					var message = '/song-'+$(this).val();
+                	console.log('songs ' + message);
+                	socket.emit('message', message);
+           		});
+			});
+		});
+
+	</script>
+	
+</head>
+<body>
+
+<!-- Page HTML Template
+<div data-role="page" id="unique-page-id" data-dialog="true-or-false">
+  <div data-role="header">
+    <h2></h2>
+  </div>
+  <div class="ui-content" role="main">
+  </div>
+</div>
+-->
+
+<div data-role="page" id="main-page">
+	<div data-role="header">
+		<h1>HUD</h1>
+	</div>
+	<div role="main" class="ui-content">
+		<ul data-role="listview">
+  			<li><a href="#lock-page">Lock</a></li>
+  			<li><a href="#headlights-page">Headlights</a></li>
+  			<li><a href="#music-page">Music</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="lock-page" data-dialog="true">
+	<div data-role="header">
+		<h2>Lock</h2>
+	</div>
+	<div class="ui-content" role="main">
+		<p>Do you want to lock or unlock your car?</p>
+		<a href="#main-page" id="unlock" class="ui-btn">Unlock</a>
+		<a href="#main-page" id="lock" class="ui-btn ui-btn-b">Lock</a>
+	</div>
+</div>
+
+<div data-role="page" id="headlights-page" data-dialog="true">
+	<div data-role="header">
+		<h2>Headlights</h2>
+	</div>
+	<div class="ui-content" role="main">
+		<label for="checkbox">On or Off:</label>
+		<input type="checkbox" id="headlights-on-off" data-role="flipswitch">
+		<label for="slider">Intensity:</label>
+		<input type="range" name="lights" id="headlights-intensity" value="1" min="0.2" max="10">
+	</div>
+</div>
+
+<div data-role="page" id="music-page" data-dialog="true">
+	<div data-role="header">
+		<h2>Music</h2>
+	</div>
+	<div class="ui-content" role="main">
+		<div class="ui-field-contain">
+			<fieldset data-role="controlgroup" id="songs">
+				<legend>Song:</legend>
+				<input type="radio" name="radio" id="radio1" value="1">
+				<label for="radio1">Jazzy</label>
+ 
+				<input type="radio" name="radio" id="radio2" value="2">
+				<label for="radio2">Dancy</label>
+ 
+				<input type="radio" name="radio" id="radio3" value="3">
+				<label for="radio3">Ridin' Dirty</label>
+
+				<input type="radio" name="radio" id="radio4" value="4">
+				<label for="radio4">OFF</label>
+			</fieldset>
+		</div>
+	</div>
+</div>  
+
+</body>
+</html>
