@@ -1,22 +1,24 @@
 # unity-hud-app
-App for controlling Unity3D via socket connection
+
+This is an app for controlling your Unity3D via a web page. The web page can be accessed via your computer or mobile phone for prototyping your app experiences.
 
 
 ##Web Setup
-####001 Download Nodejs
-http://nodejs.org
+#####Download the following to get started
+- [Nodejs](http://nodejs.org)
+- Click download zip on the right column of the page. This file contains everything you need to get started.
 
-####002 Run the INSTALLER app
-This only needs to be done once to configure your machine.
-
-####003 Run the START app
-Every time you want to talk to Unity via your web app, run this first.
+#####Setting up your web server
+- Unzip the unity-hud-app 
+- Open the 'Web_Files' folder and run the INSTALL app. This will configure your machine for this project and will only need to be run once.
+- Run the START app. Every time you want to talk to Unity via your web app, run this first.
+- In the 'web-side' folder there is an HTML file in which you can use to configure what you need
 
 ##Unity Setup
-####001 Copy the files from the 'Unity_Files' folder to your Unity project
-- If you already have 'Plugins', 'Prefabs' or 'Scripts' folders just copy the files inside there.
+#####Copy the files from the 'Unity_Files' folder to your Unity project
+- If you already have 'Plugins', 'Prefabs' or 'Scripts' folders just copy the files inside the pre-existing folders.
 
-####002 Copy the OSCReceiver prefab to your project
+####Copy the OSCReceiver prefab to your project
 - This needs to be added to your project heirarchy to work
 - Inspecting the 'OSCReceiver' prefab revails some additional options for configuration
 - Leave the 'Port' option to 3334 for this demo - our web client is already configured for this
