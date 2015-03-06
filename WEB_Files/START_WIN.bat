@@ -1,0 +1,2 @@
+node bridge.js
+PAUSE
